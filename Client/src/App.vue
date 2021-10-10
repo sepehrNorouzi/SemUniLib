@@ -15,5 +15,7 @@ export default {
 </script>
 
 <style lang="scss">
-
+h1{
+  color: #151515;
+}
 </style>
