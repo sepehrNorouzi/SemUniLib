@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Hello world!</h1>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -15,7 +15,5 @@ export default {
 </script>
 
 <style lang="scss">
-h1{
-  color: #151515;
-}
+
 </style>
