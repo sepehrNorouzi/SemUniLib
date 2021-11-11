@@ -6,6 +6,7 @@ class Book(models.Model):
     isbn13 = models.CharField(max_length=13, null=False, blank=False, unique=True)
     imageUrl = models.URLField(null=True, blank=True)
     rating = models.FloatField(blank=True, null=True)
+    published_date = models.DateField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
 
