@@ -14,11 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from myLibrary import views
+import djoser
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('books/', views.BookList.as_view(), name="bookList"),
-    path('books/<int:pk>', views.BookDetail.as_view(), name='bookDetail')
+    path('books/', views.BooksView.as_view(), name="bookList"),
+    path('books/<int:pk>', views.BookDetail.as_view(), name='bookDetail'),
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.authtoken')),
 ]
