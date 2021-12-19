@@ -1,12 +1,13 @@
 from django.http.response import Http404
+from django.db.models import Q
 
 from rest_framework import status
-from .models import Book
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from .serializers import BookSerializer
+from .serializers import BookSerializer, FavoriteSerializer
+from .models import Book, Favorite
 
 class BooksView(APIView):
 
@@ -80,4 +81,37 @@ class BookDetail(APIView):
         except:
             return Response(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
+
+class FavoriteView(APIView): 
+    
+    def get(self, request, format=None):
+        if not request.user.is_authenticated:
+            raise Http404
+        
+        favorites = Favorite.objects.filter(Q(user=request.user.id))
+        serializer = FavoriteSerializer(favorites, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request, format=None):
+        if not request.user.is_authenticated:
+            raise Http404
+        
+        oldFav = Favorite.objects.filter(Q(book=request.data['book']) & Q(user=request.user))
+
+        if len(oldFav) > 0:
+            return Response({"message": "Favorite Already in the list"}, status=status.HTTP_208_ALREADY_REPORTED)
+
+        favorite = Favorite()
+        book = None
+        try:
+            book = Book.objects.get(pk=request.data['book'])
+        except:
+            raise Http404
+
+        favorite.book = book
+        favorite.user = request.user
+        favorite.save()
+        return Response(FavoriteSerializer(favorite).data, status=status.HTTP_201_CREATED)
 
