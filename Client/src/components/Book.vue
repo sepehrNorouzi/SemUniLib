@@ -6,7 +6,7 @@
                 <h5 class="card-title">Name: {{ book.title }}</h5>
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">Publish date: {{ book.publish_date }}</li>
+                <li class="list-group-item">Publish date: {{ book.published_date }}</li>
                 <li class="list-group-item">Authors: {{ book.author }}</li>
                 <li class="list-group-item">Rating: {{ book.rating }}</li>
                 <li class="list-group-item">ISBN13: {{ book.isbn13 }}</li>
