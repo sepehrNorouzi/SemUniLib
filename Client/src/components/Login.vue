@@ -6,11 +6,11 @@
                 <form>
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" placeholder="John Doe">
+                        <input type="text" class="form-control" id="username" placeholder="John Doe" v-model="userData.username">
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password">
+                        <input type="password" class="form-control" id="password" v-model="userData.password">
                     </div>
                     <button class="btn btn-success">Login</button>
                 </form>
@@ -21,7 +21,15 @@
 
 <script>
 export default {
-    
+    data() {
+        return {
+            userData: {
+                username: '',
+                password: '',
+            },
+            err: null,
+        };
+    },
 }
 </script>
 
