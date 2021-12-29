@@ -1,10 +1,6 @@
 <template>
-    <div>
-        <div class="container">
-            <div class="row">
-                <app-book  v-for="book in books" :key="book.id" :book="book"></app-book>    
-            </div>
-        </div>
+    <div class="container">
+        <app-book  v-for="book in books" :key="book.id" :book="book"></app-book>    
     </div>
 </template>
 
@@ -20,5 +16,7 @@ export default {
 </script>
 
 <style scoped>
-
+    .container {
+        padding: 1rem;
+    }
 </style>

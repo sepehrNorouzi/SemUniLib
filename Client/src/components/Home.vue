@@ -1,15 +1,19 @@
 <template>
-    <div>
-        <nav class="navbar navbar-light bg-light">
-            <form class="container-fluid justify-content-start">
-                <button class="btn btn-outline-success me-2" type="button">Login</button>
-                <button class="btn btn-outline-secondary" type="button">Sign up</button>
-            </form>
-        </nav>
-
-        <div>
-            <app-book-grid :books="books"></app-book-grid>
+    <div class="container homeContainer">
+       
+        <div class="leftSide">
+            <div class="myCarousel"></div>
+            <div class="recentBooks"></div>
+            <div class="booksGrid">
+                <app-book-grid :books="books"></app-book-grid>
+            </div>
+            <div class="myPagination"></div>
         </div>
+
+         <div class="rightSide">
+
+        </div>
+
     </div>
 </template>
 
@@ -25,7 +29,7 @@ export default {
         };
     },
     created() {
-        Promise.resolve(api().get('/books/')).then(res => {
+        Promise.resolve(api.getBooks()).then(res => {
             this.books = res.data;
         }).catch(err => {
             this.error = err;

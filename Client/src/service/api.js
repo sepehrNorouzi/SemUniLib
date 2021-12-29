@@ -1,7 +1,10 @@
 import axios from 'axios'
 
-export default () => {
-    return axios.create({
-        baseURL: 'http://localhost:8000/',
-    })
+export default {
+    getBooks() {
+        return axios.get('/books/');
+    },
+    getMe() {
+        return axios.get('/auth/users/me/');
+    }
 }

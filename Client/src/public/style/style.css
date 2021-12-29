@@ -1,0 +1,87 @@
+body {
+    background-image: linear-gradient(#3a6186, #89253e);
+}
+
+.appContainer {
+    width: 75%;
+    margin: auto;
+}
+
+.container {
+    background-color: #ddd;
+    padding: 0;
+}
+
+.navbar {
+    width: 100%;
+}
+
+.homeContainer {
+    display: flex;
+}
+
+.leftSide {
+    background-color: red;
+    flex: 0.7;
+    display: flex;
+    flex-direction: column;
+}
+
+.myCarousel {
+    background-color: rgb(233, 243, 93);
+    flex: 0.3;
+}
+
+.recentBooks {
+    background-color: rgb(106, 149, 241);
+    flex: 0.2;
+}
+
+.booksGrid {
+    background-color: rgb(132, 238, 122);
+    flex: 0.4;
+
+}
+
+.myPagination {
+    background-color: rgb(240, 107, 245);
+    flex: 0.1;
+}
+
+.rightSide {
+    background-color: rosybrown;
+    flex: 0.3;
+}
+
+.bahicard {
+    display: flex;
+}
+
+.bahiImage {
+    flex: 0.5;
+    padding: 5px;
+}
+
+.myImage {
+    height: 100%;
+    width: 100%;
+}
+
+.bahiText {
+    flex: 1;
+}
+
+.myHeartButton {
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 50%;
+    background-color: transparent;
+    border: transparent;
+    font-size: 2rem;
+    color: gray;
+    vertical-align: middle;
+}
+
+.readButton {
+    margin-top: 10px;
+}
