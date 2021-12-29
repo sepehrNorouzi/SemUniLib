@@ -48,7 +48,8 @@ export default {
             Promise.resolve(api.signup(this.userData)).then(user => {
                 this.triggerToast('successful!', 'user has been created successfully, please login.', 'message');
             }).catch(err => {
-                this.triggerToast('unsuccessful!', err.response.data.message, 'err');
+                this.triggerToast('unsuccessful!', err.response.data, 'err');
+                console.log(err.response.data)
             });
         },
         triggerToast(title, body, type) {

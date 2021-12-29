@@ -12,11 +12,11 @@ export default new Vuex.Store({
     mutations: {
         setUser(state, user) {
             state.user = user;
-            isUserLogedin = true;
+            state.isUserLogedin = true;
         },
         setToken(state, token) {
             state.token = token;
-            isUserLogedin = true;
+            state.isUserLogedin = true;
         },
         initializeStore(state) {
             if(localStorage.getItem('token')) {

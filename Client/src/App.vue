@@ -26,7 +26,14 @@ export default {
     const token = this.$store.state.token;
     if(token) {
         axios.defaults.headers.common['Authorization'] = 'Token ' + token;
-        let user = null;
+        Promise.resolve(api.getMe()).then(user => {
+          if(user) {
+            this.$store.dispatch('setUser', user);
+          }
+        }).catch(err => {
+           console.log("here");
+           delete axios.defaults.headers.common['Authorization'];
+        });
     }
   }
 }
