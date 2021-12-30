@@ -27,7 +27,8 @@ body {
 }
 
 .myCarousel {
-    background-color: rgb(233, 243, 93);
+    background-image: linear-gradient(to right bottom, rgb(54, 54, 54), black);
+
     flex: 0.3;
 }
 

@@ -1,7 +1,11 @@
 <template>
   <div class="container homeContainer">
     <div class="leftSide">
-      <div class="myCarousel"></div>
+      <div class="myCarousel">
+        <template v-if="!$route.params.page">
+            <app-carousel :books="books.slice(16,19)" />
+        </template>
+      </div>
       <div class="recentBooks"></div>
       <div class="booksGrid">
         <app-book-grid :books="pagesBooks()"></app-book-grid>
@@ -35,6 +39,7 @@
 import BookGridVue from "./BookGrid.vue";
 import api from "../service/api";
 import { mapState } from 'vuex'
+import CarouselVue from './Carousel.vue';
 
 export default {
   data() {
@@ -70,7 +75,8 @@ export default {
     },
   },
   components: {
-    appBookGrid: BookGridVue
+    appBookGrid: BookGridVue,
+    appCarousel: CarouselVue
   }
 };
 </script>
