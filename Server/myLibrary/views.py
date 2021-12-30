@@ -1,4 +1,4 @@
-from django.http.response import Http404
+from django.http.response import Http404, JsonResponse
 from django.db.models import Q
 
 from rest_framework import status
@@ -8,6 +8,7 @@ from rest_framework.response import Response
 
 from .serializers import BookSerializer, FavoriteSerializer
 from .models import Book, Favorite
+import csv
 
 class BooksView(APIView):
 
@@ -115,3 +116,36 @@ class FavoriteView(APIView):
         favorite.save()
         return Response(FavoriteSerializer(favorite).data, status=status.HTTP_201_CREATED)
 
+def initDatabase(request):
+    if(request.user.is_superuser):
+        with open("../Server/books.csv", newline='', encoding='utf-8') as f:
+            dataReader = csv.reader(f, delimiter=',', quotechar='"')
+            next(dataReader)
+            dataReader = list(dataReader)
+
+
+            for i in range(120):
+                isbn13 = 0
+                if(dataReader[i][6] != ''):
+                    isbn13 = str(int(float(dataReader[i][6])))
+                authors = dataReader[i][7]
+                publishedDate = int(float(dataReader[i][8]))
+                title = dataReader[i][10]
+                rating = float(dataReader[i][12])
+                imageURL = dataReader[i][21]
+                book = Book(title=title, author=authors, isbn13=isbn13, imageUrl=imageURL, rating=rating, published_date=publishedDate)
+                print(isbn13, end=" ")
+                print(authors, end=" ")
+                print(publishedDate, end=" ")
+                print(title, end=" ")
+                print(rating, end=" ")
+                print(imageURL, end=" ")
+                print()
+                try:
+                    book.save()
+                except:
+                    continue 
+
+        return JsonResponse({
+            "message": "DONE"
+        })

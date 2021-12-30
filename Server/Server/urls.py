@@ -26,4 +26,5 @@ urlpatterns = [
     path('books/favorites/', views.FavoriteView.as_view(), name="Favorites"),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
+    path('books/initialize/', views.initDatabase)
 ]
