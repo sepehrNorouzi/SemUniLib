@@ -30,6 +30,11 @@ export default {
           if(user) {
             this.$store.dispatch('setUser', user);
           }
+          Promise.resolve(api.getFavorites()).then(response => {
+            this.$store.dispatch("setFavorites", response.data);
+          }).catch(err => {
+            console.log(err);
+          })
         }).catch(err => {
            console.log("here");
            delete axios.defaults.headers.common['Authorization'];

@@ -17,5 +17,14 @@ export default {
   },
   login(userData) {
     return axios.post("/auth/token/login/", userData);
+  },
+
+  addToFavorites(id) {
+    return axios.post('/books/favorites/', {book: id});
+  },
+
+  getFavorites() {
+    return axios.get('/books/favorites/');
   }
+
 };

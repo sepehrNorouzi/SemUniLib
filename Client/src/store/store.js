@@ -9,7 +9,8 @@ export default new Vuex.Store({
         token: null,
         isUserLogedin: false,
         books: null,
-        bookLen: 0
+        bookLen: 0,
+        favorites: [],
     },
     mutations: {
         
@@ -22,6 +23,12 @@ export default new Vuex.Store({
             state.user = user;
             state.isUserLogedin = true;
         },
+
+        setFavorites(state, favorites) {
+            state.favorites = favorites;
+            state.isFavoritesLogedin = true;
+        },
+
         setToken(state, token) {
             if(localStorage.getItem("token")) {
                 localStorage.removeItem("token");
@@ -65,6 +72,10 @@ export default new Vuex.Store({
         },
         cleanStore({ commit }) {
             commit("cleanStore");
-        }
+        },
+
+        setFavorites({ commit }, favorites) {
+            commit("setFavorites", favorites);
+        },
     },
 })

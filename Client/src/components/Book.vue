@@ -13,7 +13,7 @@
                         <p class="card-text">Rating: {{ book.rating }}</p>
                         <p class="card-text">ISBN13: {{ book.isbn13 }}</p>
                         <template v-if="isUserLogedin">
-                            <button class="myHeartButton">♥</button>
+                            <button class="myHeartButton" :class="{'redHeart': isInFavorites(book.id)}" @click="addToFavorites">♥</button>
                             <button class="card-link btn btn-success readButton">Add to read</button>
                         </template>
                     </div>
@@ -24,18 +24,50 @@
 </template>
 
 <script>
+import axios from 'axios'
 
 import { mapState } from 'vuex'
+import api from '../service/api'
 
 export default {
-    props: ['book'],
+
+    props: ['book',],
 
     computed: {
-        ...mapState(['isUserLogedin'])
-    }
+        ...mapState(['isUserLogedin', 'favorites'])
+    },
+
+
+    methods: {
+        addToFavorites() {
+            Promise.resolve(api.addToFavorites(this.book.id)).then(response => {
+                let fav = this.$store.state.favorites;
+                fav.push(response.data)
+                this.$store.dispatch('setFavorites', this.favorites);
+                window.location.reload();
+            }).catch(err => {
+                console.log(err)
+            })
+        },
+
+        isInFavorites(id) {
+            console.log(id, this.favorites);
+            for(let i = 0; i < this.favorites.length; i++) {
+                if(this.favorites[i].book == id) {
+                    console.log("here");
+                    return true;
+                }
+            }
+            return false;
+        }
+    },
 }
 </script>
 
 <style scoped>
+
+.redHeart {
+    color: red;
+}
 
 </style>
