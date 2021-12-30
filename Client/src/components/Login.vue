@@ -4,7 +4,7 @@
       <div class="card-header">Login</div>
       <div class="card-body">
         <div class="alert alert-danger" role="alert" v-if="err">
-            {{ err }}
+          {{ err }}
         </div>
         <form>
           <div class="mb-3">
@@ -37,7 +37,9 @@
 
 <script>
 import api from "../service/api";
-import axios from 'axios';
+import axios from "axios";
+import { mapState } from 'vuex'
+
 
 export default {
   data() {
@@ -55,14 +57,14 @@ export default {
       Promise.resolve(api.login(this.userData))
         .then(response => {
           this.$store.dispatch("setToken", response.data.auth_token);
-          const token = this.$store.state.token
+          const token = this.$store.state.token;
           if (token) {
             axios.defaults.headers.common["Authorization"] = "Token " + token;
             Promise.resolve(api.getMe())
               .then(user => {
                 if (user) {
                   this.$store.dispatch("setUser", user);
-                  this.$router.push('/');
+                  this.$router.push("/");
                 }
               })
               .catch(err => {
@@ -71,11 +73,15 @@ export default {
           }
         })
         .catch(err => {
-            if(err) {
-                this.err = err;
-            }
+          if (err) {
+            this.err = err.response.data.non_field_errors[0];
+          }
         });
     }
+  },
+
+  computed: {
+      ...mapState(['isUserLogedin']),
   }
 };
 </script>

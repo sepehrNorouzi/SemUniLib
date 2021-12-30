@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     "corsheaders",
     'myLibrary',
     'rest_framework',
-     'rest_framework.authtoken',
-     'djoser',
+    'rest_framework.authtoken',
+    'djoser',
 ]
 
 MIDDLEWARE = [
