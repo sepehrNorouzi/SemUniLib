@@ -4,7 +4,7 @@
       <div class="myCarousel"></div>
       <div class="recentBooks"></div>
       <div class="booksGrid">
-        <app-book-grid :books="books"></app-book-grid>
+        <app-book-grid :books="pagesBooks()"></app-book-grid>
       </div>
       <div class="myPagination">
         <nav aria-label="Page navigation example">
@@ -14,9 +14,9 @@
                 <span aria-hidden="true">&laquo;</span>
               </a>
             </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item" v-for="index in parseInt(bookLen / 7)" :key="index">
+              <router-link class="page-link" :to="paginationTo(index)" exact active-class="active">{{ index }}</router-link>
+            </li>
             <li class="page-item">
               <a class="page-link" href="#" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
@@ -43,7 +43,7 @@ export default {
     };
   },
   computed: {
-      ...mapState(['books'])
+      ...mapState(['books', 'bookLen'])
   },
   created() {
     if(!this.books) {
@@ -56,10 +56,27 @@ export default {
       });
     }
   },
+  methods: {
+    pagesBooks() {
+      if(this.$route.params.page) {
+        return this.books.slice((this.$route.params.page - 1) * 7, this.$route.params.page * 7);
+      }
+      else {
+        return this.books.slice(0, 7);
+      }
+    },
+    paginationTo(index) {
+      return `/${index}`;
+    },
+  },
   components: {
     appBookGrid: BookGridVue
   }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+  .active {
+    background-color: rgb(155, 191, 245);
+  }
+</style>

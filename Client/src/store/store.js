@@ -15,7 +15,7 @@ export default new Vuex.Store({
         
         setBooks(state, books) {
             state.books = books;
-            state.bookLen = book.length;
+            state.bookLen = books.length;
         },
 
         setUser(state, user) {
