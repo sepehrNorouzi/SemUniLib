@@ -37,6 +37,17 @@ class BooksView(APIView):
                     return Response({"error": "Book is not provided"}, status=status.HTTP_400_BAD_REQUEST)
 
 
+class RecentBooks(APIView):
+
+    def get(self, request, format=None):
+
+        recentBooks = Book.objects.all().order_by('-published_date', '-rating', 'title')[:10]
+
+        serializer = BookSerializer(recentBooks, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 class BookDetail(APIView):
 
     def get_object(self, pk):
