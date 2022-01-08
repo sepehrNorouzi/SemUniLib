@@ -102,6 +102,7 @@ class FavoriteView(APIView):
         oldFav = Favorite.objects.filter(Q(book=request.data['book']) & Q(user=request.user))
 
         if len(oldFav) > 0:
+            oldFav.delete()
             return Response({"message": "Favorite Already in the list"}, status=status.HTTP_208_ALREADY_REPORTED)
 
         favorite = Favorite()

@@ -24,8 +24,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 import { mapState } from 'vuex'
 import api from '../service/api'
 
