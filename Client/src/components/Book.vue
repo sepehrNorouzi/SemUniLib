@@ -5,7 +5,7 @@
                 <div class="col-md-4 bahiImage">
                     <img :src="book.imageUrl" class="myImage rounded" alt="book">
                 </div>
-                <div class="col=md-8 bahiText">
+                <div class="col-md-4 bahiText">
                     <div class="card-body">
                         <h5 class="card-title">Name: {{ book.title }}</h5>
                         <p class="card-text">Publish date: {{ book.published_date }}</p>
@@ -42,7 +42,6 @@ export default {
                 let fav = this.$store.state.favorites;
                 fav.push(response.data)
                 this.$store.dispatch('setFavorites', this.favorites);
-                window.location.reload();
             }).catch(err => {
                 console.log(err)
             })

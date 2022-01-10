@@ -10,6 +10,10 @@ export default {
     });
   },
 
+  getBook(pk) {
+    return axios.get(`/books/${pk}`);
+  },
+
   getRecentBooks() {
     return axios.get("/books/recents/", {
       transformRequest: (data, headers) => {
