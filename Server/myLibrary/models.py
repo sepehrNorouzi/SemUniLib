@@ -26,3 +26,12 @@ class Favorite(models.Model):
 
     def __str__(self) -> str:
         return f'{self.user.username} - {self.id}'
+
+
+class ToRead(models.Model):
+    user = models.ForeignKey(User, on_delete=CASCADE)
+    book = models.ForeignKey(Book, on_delete=CASCADE)
+
+
+    def __str__(self) -> str:
+        return f'{self.user.username} - {self.id}'

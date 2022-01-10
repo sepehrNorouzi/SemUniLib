@@ -6,8 +6,8 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from .serializers import BookSerializer, FavoriteSerializer
-from .models import Book, Favorite
+from .serializers import BookSerializer, FavoriteSerializer, ToReadSerializer
+from .models import Book, Favorite, ToRead
 import csv
 
 class BooksView(APIView):
@@ -161,3 +161,37 @@ def initDatabase(request):
         return JsonResponse({
             "message": "DONE"
         })
+
+
+class ToReadView(APIView): 
+    
+    def get(self, request, format=None):
+        if not request.user.is_authenticated:
+            raise Http404
+        
+        toRead = ToRead.objects.filter(Q(user=request.user.id))
+        serializer = ToReadSerializer(toRead, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request, format=None):
+        if not request.user.is_authenticated:
+            raise Http404
+        
+        oldToread = ToRead.objects.filter(Q(book=request.data['book']) & Q(user=request.user))
+
+        if len(oldToread) > 0:
+            oldToread.delete()
+            return Response({"message": "To Read Already in the list"}, status=status.HTTP_208_ALREADY_REPORTED)
+
+        toRead = ToRead()
+        book = None
+        try:
+            book = Book.objects.get(pk=request.data['book'])
+        except:
+            raise Http404
+
+        toRead.book = book
+        toRead.user = request.user
+        toRead.save()
+        return Response(ToReadSerializer(toRead).data, status=status.HTTP_201_CREATED)

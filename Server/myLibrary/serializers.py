@@ -1,6 +1,6 @@
 from django.db.models import fields
 from rest_framework import serializers
-from .models import Book, Favorite
+from .models import Book, Favorite, ToRead
 
 class BookSerializer(serializers.ModelSerializer):
 
@@ -20,6 +20,16 @@ class FavoriteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Favorite
+        fields = (
+            'id',
+            'user',
+            'book',
+        )
+
+class ToReadSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ToRead
         fields = (
             'id',
             'user',
