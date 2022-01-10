@@ -9,6 +9,15 @@ export default {
       }
     });
   },
+
+  getRecentBooks() {
+    return axios.get("/books/recents/", {
+      transformRequest: (data, headers) => {
+        delete headers.common["Authorization"];
+        return data;
+      }
+    });
+  },
   getMe() {
     return axios.get("/auth/users/me/");
   },

@@ -22,7 +22,7 @@ import djoser
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('books/', views.BooksView.as_view(), name="bookList"),
-    path('books/recents', views.RecentBooks.as_view(), name="recentBooks"),
+    path('books/recents/', views.RecentBooks.as_view(), name="recentBooks"),
     path('books/<int:pk>/', views.BookDetail.as_view(), name='bookDetail'),
     path('books/favorites/', views.FavoriteView.as_view(), name="Favorites"),
     path('auth/', include('djoser.urls')),

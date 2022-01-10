@@ -10,6 +10,7 @@ export default new Vuex.Store({
         isUserLogedin: false,
         books: null,
         bookLen: 0,
+        recentBooks: null,
         favorites: [],
     },
     mutations: {
@@ -17,6 +18,10 @@ export default new Vuex.Store({
         setBooks(state, books) {
             state.books = books;
             state.bookLen = books.length;
+        },
+
+        setRecentBooks(state, books) {
+            state.recentBooks = books;
         },
 
         setUser(state, user) {
@@ -61,6 +66,11 @@ export default new Vuex.Store({
         setBooks({commit}, books) {
             commit("setBooks", books);
         },
+
+        setRecentBooks({commit}, books) {
+            commit("setRecentBooks", books);
+        },
+
         setUser({commit}, user) {
             commit("setUser", user);
         },

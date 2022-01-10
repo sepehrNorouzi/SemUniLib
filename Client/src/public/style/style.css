@@ -1,5 +1,6 @@
 body {
     background-image: linear-gradient(#3a6186, #89253e);
+    min-height: 100vh;
 }
 
 .appContainer {
@@ -29,22 +30,24 @@ body {
 .myCarousel {
     background-image: linear-gradient(to right bottom, rgb(54, 54, 54), black);
 
-    flex: 0.3;
+    /* flex: 0.3; */
 }
 
 .recentBooks {
-    background-color: rgb(106, 149, 241);
-    flex: 0.2;
+    /* flex: 0.2; */
+    min-height: 200px;
+
+    padding: 10px;
 }
 
 .booksGrid {
     background-color: rgb(132, 238, 122);
-    flex: 0.4;
+    /* flex: 0.4; */
 
 }
 
 .myPagination {
-    flex: 0.1;
+    /* flex: 0.1; */
     display: flex;
     align-items: center;
     justify-content: center;
