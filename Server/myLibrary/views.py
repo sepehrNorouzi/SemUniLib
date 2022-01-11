@@ -16,7 +16,7 @@ class BooksView(APIView):
         books = Book.objects.all()
         serializer = BookSerializer(books, many=True)
 
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
         user = request.user
@@ -30,7 +30,7 @@ class BooksView(APIView):
 
                 if serializer.is_valid():
                     serializer.save()
-                    return Response(serializer.data)
+                    return Response(serializer.data, status=status.HTTP_200_OK)
                 else:
                     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             else:
@@ -60,7 +60,7 @@ class BookDetail(APIView):
         book = self.get_object(pk)
         serializer = BookSerializer(book)
 
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, pk, format=None):
         book = self.get_object(pk)
@@ -74,7 +74,7 @@ class BookDetail(APIView):
 
             if serializer.is_valid():
                 serializer.save()
-                return Response(serializer.data)
+                return Response(serializer.data, status=status.HTTP_200_OK)
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
@@ -128,6 +128,7 @@ class FavoriteView(APIView):
         favorite.save()
         return Response(FavoriteSerializer(favorite).data, status=status.HTTP_201_CREATED)
 
+
 def initDatabase(request):
     if(request.user.is_superuser):
         with open("../Server/books.csv", newline='', encoding='utf-8') as f:
@@ -146,13 +147,6 @@ def initDatabase(request):
                 rating = float(dataReader[i][12])
                 imageURL = dataReader[i][21]
                 book = Book(title=title, author=authors, isbn13=isbn13, imageUrl=imageURL, rating=rating, published_date=publishedDate)
-                print(isbn13, end=" ")
-                print(authors, end=" ")
-                print(publishedDate, end=" ")
-                print(title, end=" ")
-                print(rating, end=" ")
-                print(imageURL, end=" ")
-                print()
                 try:
                     book.save()
                 except:
