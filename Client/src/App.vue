@@ -35,8 +35,13 @@ export default {
           }).catch(err => {
             console.log(err);
           })
+
+          Promise.resolve(api.getToReads()).then(response => {
+            this.$store.dispatch("setToReads", response.data);
+          }).catch(err => {
+            console.log(err);
+          })
         }).catch(err => {
-           console.log("here");
            delete axios.defaults.headers.common['Authorization'];
         });
     }

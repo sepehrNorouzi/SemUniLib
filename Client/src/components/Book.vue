@@ -14,7 +14,9 @@
                         <p class="card-text">ISBN13: {{ book.isbn13 }}</p>
                         <template v-if="isUserLogedin">
                             <button class="myHeartButton" :class="{'redHeart': isInFavorites(book.id)}" @click="addToFavorites">♥</button>
-                            <button class="card-link btn btn-success readButton">Add to read</button>
+                            <button class="card-link btn btn-success readButton" :class="{'inToReads': isInToReads(book.id)}" @click="addToToReads">
+                                {{isInToReads(book.id) ? "Remove From To Reads" : "Add To To Reads"}}
+                            </button>
                         </template>
                     </div>
                 </div>
@@ -32,7 +34,7 @@ export default {
     props: ['book',],
 
     computed: {
-        ...mapState(['isUserLogedin', 'favorites'])
+        ...mapState(['isUserLogedin', 'favorites', 'toReads'])
     },
 
 
@@ -41,17 +43,37 @@ export default {
             Promise.resolve(api.addToFavorites(this.book.id)).then(response => {
                 let fav = this.$store.state.favorites;
                 fav.push(response.data)
-                this.$store.dispatch('setFavorites', this.favorites);
+                this.$store.dispatch('setFavorites', fav);
+            }).catch(err => {
+                (err)
+            })
+        },
+
+        addToToReads() {
+            Promise.resolve(api.addToToReads(this.book.id)).then(response => {
+                let tr = this.$store.state.toReads;
+                tr.push(response.data)
+                this.$store.dispatch('setToReads', tr);
             }).catch(err => {
                 console.log(err)
             })
         },
 
+
         isInFavorites(id) {
-            console.log(id, this.favorites);
             for(let i = 0; i < this.favorites.length; i++) {
                 if(this.favorites[i].book == id) {
-                    console.log("here");
+                    
+                    return true;
+                }
+            }
+            return false;
+        },
+
+        isInToReads(id) {
+            for(let i = 0; i < this.toReads.length; i++) {
+                console.log(this.toReads[i].book, id)
+                if(this.toReads[i].book == id) {
                     return true;
                 }
             }
@@ -65,6 +87,10 @@ export default {
 
 .redHeart {
     color: red;
+}
+
+.inToReads {
+    background: red;
 }
 
 </style>

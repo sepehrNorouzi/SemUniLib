@@ -38,6 +38,14 @@ export default {
 
   getFavorites() {
     return axios.get('/books/favorites/');
+  },
+
+  addToToReads(id) {
+    return axios.post('/books/toreads/', {book: id});
+  },
+
+  getToReads() {
+    return axios.get('/books/toreads/');
   }
 
 };

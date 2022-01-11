@@ -12,6 +12,7 @@ export default new Vuex.Store({
         bookLen: 0,
         recentBooks: null,
         favorites: [],
+        toReads: [],
     },
     mutations: {
         
@@ -31,7 +32,10 @@ export default new Vuex.Store({
 
         setFavorites(state, favorites) {
             state.favorites = favorites;
-            state.isFavoritesLogedin = true;
+        },
+
+        setToReads(state, toReads) {
+            state.toReads = toReads;
         },
 
         setToken(state, token) {
@@ -86,6 +90,10 @@ export default new Vuex.Store({
 
         setFavorites({ commit }, favorites) {
             commit("setFavorites", favorites);
+        },
+
+        setToReads({ commit }, toReads) {
+            commit("setToReads", toReads);
         },
     },
 })
